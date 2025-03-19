@@ -22,4 +22,4 @@ Build/
 *.sdf
 *.suo
 *.xcworkspace
-
+*.vsconfig
