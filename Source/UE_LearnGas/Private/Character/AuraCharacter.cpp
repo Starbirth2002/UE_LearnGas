@@ -1,31 +1,31 @@
 ﻿// 王乐用于学习Gas的项目，仅供参考
 
 
-#include "UE_LearnGas/Public/AuraCharacterBase.h"
+#include "UE_LearnGas/Public/Character/AuraCharacter.h"
 
 
 // Sets default values
-AAuraCharacterBase::AAuraCharacterBase()
+AAuraCharacter::AAuraCharacter()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 }
 
 // Called when the game starts or when spawned
-void AAuraCharacterBase::BeginPlay()
+void AAuraCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
 // Called every frame
-void AAuraCharacterBase::Tick(float DeltaTime)
+void AAuraCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
 // Called to bind functionality to input
-void AAuraCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AAuraCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }

@@ -3,17 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "AuraCharacterBase.generated.h"
+#include "AuraCharacterBase.h"
+#include "AuraEnemy.generated.h"
 
 UCLASS()
-class UE_LEARNGAS_API AAuraCharacterBase : public ACharacter
+class UE_LEARNGAS_API AAuraEnemy : public AAuraCharacterBase
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties
-	AAuraCharacterBase();
+	AAuraEnemy();
 
 protected:
 	// Called when the game starts or when spawned
