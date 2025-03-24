@@ -1,32 +1,23 @@
 ﻿// 王乐用于学习Gas的项目，仅供参考
 
-
 #include "UE_LearnGas/Public/Character/AuraCharacter.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "UE_LearnGas/UE_LearnGas.h"
 
+WL_DEBUG_BEGIN
 
-// Sets default values
+// 构造函数
 AAuraCharacter::AAuraCharacter()
 {
-	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+  auto Movement = GetCharacterMovement();
+  Movement->bOrientRotationToMovement = true;
+  Movement->RotationRate = FRotator(0.f, 400.f, 0.f);
+  Movement->bConstrainToPlane = true;
+  Movement->bSnapToPlaneAtStart = true;
+
+  bUseControllerRotationPitch = false;;
+  bUseControllerRotationYaw = false;
+  bUseControllerRotationRoll = false;
 }
 
-// Called when the game starts or when spawned
-void AAuraCharacter::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
-// Called every frame
-void AAuraCharacter::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-
-// Called to bind functionality to input
-void AAuraCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-}
-
+WL_DEBUG_END

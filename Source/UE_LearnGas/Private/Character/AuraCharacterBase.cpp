@@ -1,6 +1,6 @@
 ﻿// 王乐用于学习Gas的项目，仅供参考
-#include "Character/AuraCharacterBase.h"
-#include "UE_LearnGas/Kernel/WlHead.h"
+#include "Character/AuraCharacterBase.h" 
+#include "UE_LearnGas/UE_LearnGas.h"
 
 WL_DEBUG_BEGIN
 
@@ -9,6 +9,7 @@ AAuraCharacterBase::AAuraCharacterBase()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
+	// 初始化Weapon组件
 	m_Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
 	m_Weapon->SetupAttachment(GetMesh(), FName(TEXT("WeaponHandSocket")));
 	m_Weapon->SetCollisionEnabled(ECollisionEnabled::Type::NoCollision);

@@ -1,32 +1,31 @@
 ﻿// 王乐用于学习Gas的项目，仅供参考
 
-
 #include "UE_LearnGas/Public/Character/AuraEnemy.h"
+#include "UE_LearnGas/UE_LearnGas.h"
 
+WL_DEBUG_BEGIN
 
-// Sets default values
+// 构造函数
 AAuraEnemy::AAuraEnemy()
 {
-	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 }
 
-// Called when the game starts or when spawned
-void AAuraEnemy::BeginPlay()
+// 高亮Actor
+void AAuraEnemy::HighlightActor()
 {
-	Super::BeginPlay();
+	GetMesh()->SetRenderCustomDepth(true);
+	GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
+	m_Weapon->SetRenderCustomDepth(true);
+	m_Weapon->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
 	
 }
 
-// Called every frame
-void AAuraEnemy::Tick(float DeltaTime)
+// 取消高亮Actor
+void AAuraEnemy::UnHighlightActor()
 {
-	Super::Tick(DeltaTime);
+	GetMesh()->SetRenderCustomDepth(false);
+	m_Weapon->SetRenderCustomDepth(false);
 }
 
-// Called to bind functionality to input
-void AAuraEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-}
-
+WL_DEBUG_END

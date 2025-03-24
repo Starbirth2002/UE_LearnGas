@@ -4,25 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "AuraCharacterBase.h"
+#include "Interaction/EnemyInterface.h"
 #include "AuraEnemy.generated.h"
 
 UCLASS()
-class UE_LEARNGAS_API AAuraEnemy : public AAuraCharacterBase
+class UE_LEARNGAS_API AAuraEnemy : public AAuraCharacterBase, public IEnemyInterface
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
+	// 构造函数
 	AAuraEnemy();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	// 高亮Actor
+	virtual void HighlightActor() override;
+	// 取消高亮Actor
+	virtual void UnHighlightActor() override;
 };
