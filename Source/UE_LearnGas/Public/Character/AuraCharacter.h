@@ -14,4 +14,23 @@ class UE_LEARNGAS_API AAuraCharacter : public AAuraCharacterBase
 public:
 	// 构造函数
 	AAuraCharacter();
+
+protected:
+	// 开始运行
+	virtual void BeginPlay() override;
+
+//~ Begin APawn Interface.
+public:
+	// 在被控制器控制时调用
+	virtual void PossessedBy(AController* NewController) override;
+	
+//~ End APawn Interface.
+public:
+	virtual void OnRep_PlayerState() override;
+
+	
+
+private:
+	// 初始化能力信息
+	void InitAbilityActorInfo();
 };

@@ -14,12 +14,14 @@ public class UE_LearnGas : ModuleRules
 			"CoreUObject", 
 			"Engine", 
 			"InputCore",
-			"EnhancedInput"
+			"EnhancedInput", 
+			"GameplayAbilities",
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[]
 		{
-			// "EnhancedInput",
+			"GameplayTags",
+			"GameplayTasks"
 		});
 
 		// Uncomment if you are using Slate UI

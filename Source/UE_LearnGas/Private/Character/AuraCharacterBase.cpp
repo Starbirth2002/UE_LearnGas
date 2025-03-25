@@ -15,6 +15,12 @@ AAuraCharacterBase::AAuraCharacterBase()
 	m_Weapon->SetCollisionEnabled(ECollisionEnabled::Type::NoCollision);
 }
 
+// 获取 能力系统组件
+UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
+{
+	return m_AbilitySystemComponent;
+}
+
 // 开始运行
 void AAuraCharacterBase::BeginPlay()
 {
