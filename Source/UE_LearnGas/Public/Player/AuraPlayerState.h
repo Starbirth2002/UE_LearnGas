@@ -16,16 +16,16 @@ UCLASS()
 class UE_LEARNGAS_API AAuraPlayerState : public APlayerState, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
-
+public:
+	// 构造函数
+	AAuraPlayerState();
+	
 protected:
 	// 能力组件
 	UPROPERTY(EditAnywhere,category = "Combat") TObjectPtr<UAbilitySystemComponent>			m_AbilitySystemComponent;
 	// 属性集
 	UPROPERTY(EditAnywhere,category = "Combat") TObjectPtr<UAttributeSet>					m_AttributeSet;
 	
-public:
-	// 构造函数
-	AAuraPlayerState();
 
 public:
 	// 获取 能力系统组件

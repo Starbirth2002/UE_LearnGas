@@ -15,6 +15,10 @@ class UE_LEARNGAS_API AAuraCharacterBase : public ACharacter, public IAbilitySys
 
 {
 	GENERATED_BODY()
+public:
+	// 构造函数
+	AAuraCharacterBase();
+	
 protected:
 	// 武器组件
 	UPROPERTY(EditAnywhere, Category = "Combat") TObjectPtr<USkeletalMeshComponent>			m_Weapon;
@@ -23,9 +27,7 @@ protected:
 	UPROPERTY(EditAnywhere,category = "Combat") TObjectPtr<UAbilitySystemComponent>			m_AbilitySystemComponent;
 	// 属性集
 	UPROPERTY(EditAnywhere,category = "Combat") TObjectPtr<UAttributeSet>					m_AttributeSet;
-public:
-	// 构造函数
-	AAuraCharacterBase();
+
 public:
 	// 获取 能力系统组件
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;

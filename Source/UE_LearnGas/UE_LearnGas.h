@@ -8,3 +8,7 @@
 #define WL_DEBUG_END UE_ENABLE_OPTIMIZATION
 
 #define CUSTOM_DEPTH_RED 250.f
+
+/* CMD
+ * 显示ABS数据	showdebug abilitysystem
+ */
