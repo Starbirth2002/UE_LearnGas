@@ -6,20 +6,37 @@
 #include "UObject/Object.h"
 #include "AuraWidgetController.generated.h"
 
-class UAuraAttributeSet;
+class UAttributeSet;
 class UAbilitySystemComponent;
 
+
+// 界面控制器参数
+USTRUCT(BlueprintType)
+struct FWidgetControllerParams
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TObjectPtr<APlayerController> PlayerController = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TObjectPtr<APlayerState> PlayerState = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TObjectPtr<UAttributeSet> AttributeSet = nullptr;
+	
+public:
+	FWidgetControllerParams() {}
+	FWidgetControllerParams(APlayerController* PC, APlayerState* PS,
+		UAbilitySystemComponent* ASC, UAttributeSet* AS)
+		:PlayerController(PC), PlayerState(PS), AbilitySystemComponent(ASC), AttributeSet(AS) {}
+
+};
+
 /**
- * 
+ * 界面控制器
  */
 UCLASS()
 class UE_LEARNGAS_API UAuraWidgetController : public UObject
 {
 	GENERATED_BODY()
-public:
-	// 构造函数
-	UAuraWidgetController();
-	
 protected:
 	UPROPERTY(BlueprintReadOnly, category = "WIdgetController")
 	TObjectPtr<APlayerController>			PlayerController;
@@ -31,5 +48,13 @@ protected:
 	TObjectPtr<UAbilitySystemComponent>		AbilitySystemComponent;
 	
 	UPROPERTY(BlueprintReadOnly, category = "WIdgetController")
-	TObjectPtr<UAuraAttributeSet>			AttributeSet;
+	TObjectPtr<UAttributeSet>				AttributeSet;
+
+public:
+	// 构造函数
+	UAuraWidgetController();
+
+	public:
+	UFUNCTION(BlueprintCallable) // 设置界面控制器参数
+	void SetWidgetControllerParams(const FWidgetControllerParams& WCParams);
 };

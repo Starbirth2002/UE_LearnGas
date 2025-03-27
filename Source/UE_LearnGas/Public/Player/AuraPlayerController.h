@@ -17,6 +17,14 @@ UCLASS()
 class UE_LEARNGAS_API AAuraPlayerController : public APlayerController
 {
 	GENERATED_BODY()
+		
+private:
+	UPROPERTY(EditAnywhere, Category = "Input") TObjectPtr<UInputMappingContext>	m_AuraContext;
+	UPROPERTY(EditAnywhere, Category = "Input") TObjectPtr<UInputAction>			m_MoveAction;
+	
+	IEnemyInterface* LastActor = nullptr;	// 上一次指向的Actor
+	IEnemyInterface* ThisActor = nullptr;	// 这一次指向的Actor
+	
 public:
 	// 构造函数
 	AAuraPlayerController();
@@ -28,19 +36,13 @@ protected:
 	virtual void BeginPlay() override;
 	// 设置自定义输入绑定
 	virtual void SetupInputComponent() override;
-	
-private:
-	UPROPERTY(EditAnywhere, Category = "Input") TObjectPtr<UInputMappingContext>	m_AuraContext;
-	UPROPERTY(EditAnywhere, Category = "Input") TObjectPtr<UInputAction>			m_MoveAction;
 
+private:
 	// 移动
 	void Move(const FInputActionValue& InputActionValue);
-
+	
 	// 鼠标射线检测
 	void CursorTrace();
-
-	IEnemyInterface* LastActor = nullptr;	// 上一次指向的Actor
-	IEnemyInterface* ThisActor = nullptr; // 这一次指向的Actor
 };
 
 

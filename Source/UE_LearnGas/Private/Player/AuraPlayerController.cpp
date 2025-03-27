@@ -25,11 +25,11 @@ void AAuraPlayerController::PlayerTick(float DeltaTime)
 void AAuraPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+	check(m_AuraContext);
 	
 	// 向增强输入系统添加默认映射
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	check(Subsystem && m_AuraContext);
-	Subsystem->AddMappingContext(m_AuraContext, 0);
+	SAFE_FUN(Subsystem, AddMappingContext(m_AuraContext, 0));
 
 	// 显示 默认鼠标
 	bShowMouseCursor = true;

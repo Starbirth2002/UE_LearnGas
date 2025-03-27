@@ -9,6 +9,8 @@
 
 #define CUSTOM_DEPTH_RED 250.f
 
+// 安全调用
+#define SAFE_FUN(p, fun) { if ( p ) { p->fun; } }
 /* CMD
  * 显示ABS数据	showdebug abilitysystem
  */

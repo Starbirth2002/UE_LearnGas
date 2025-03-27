@@ -14,7 +14,6 @@ class UE_LEARNGAS_API AAuraEffectActor : public AActor
 {
 	GENERATED_BODY()
 
-	
 private:
 	UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> Mesh;
 	UPROPERTY(VisibleAnywhere) TObjectPtr<USphereComponent> Sphere;

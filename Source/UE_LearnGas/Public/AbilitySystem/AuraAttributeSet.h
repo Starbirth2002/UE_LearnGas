@@ -21,11 +21,8 @@ UCLASS()
 class UE_LEARNGAS_API UAuraAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
-public :
-	// 构造函数
-	UAuraAttributeSet();
-public:
 	
+public:
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, DisplayName = "生命值", Category = "重要属性")
 	FGameplayAttributeData Health;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Health);
@@ -42,6 +39,9 @@ public:
 	FGameplayAttributeData MaxMana;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxMana);
 	
+public :
+		// 构造函数
+		UAuraAttributeSet();
 public:
 
 	// 获取生命周期内复制的属性
