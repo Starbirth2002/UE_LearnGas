@@ -13,4 +13,6 @@ UCLASS()
 class UE_LEARNGAS_API AAuraGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
+
+	virtual void BeginPlay() override;
 };

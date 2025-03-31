@@ -9,10 +9,10 @@ WL_DEBUG_BEGIN
 // 构造函数
 UAuraAttributeSet::UAuraAttributeSet()
 {
-	InitHealth(100.f);
+	InitHealth(50.f);
 	InitMaxHealth(100.f);
 	InitMana(50.f);
-	InitMaxMana(50.f);
+	InitMaxMana(100.f);
 }
 
 // 获取生命周期内复制的属性

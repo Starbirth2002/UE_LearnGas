@@ -1,11 +1,10 @@
 ﻿// 王乐用于学习Gas的项目，仅供参考
 
 #include "Actor/AuraEffectActor.h"
+#include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemInterface.h"
-#include "AbilitySystem/AuraAttributeSet.h"
 #include "Components/StaticMeshComponent.h"
-#include "Components/SphereComponent.h"
 #include "UE_LearnGas/UE_LearnGas.h"
 
 WL_DEBUG_BEGIN
@@ -14,12 +13,8 @@ WL_DEBUG_BEGIN
 AAuraEffectActor::AAuraEffectActor()
 {
 	PrimaryActorTick.bCanEverTick = false;
-	
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
-	SetRootComponent(Mesh);
-	
-	Sphere = CreateDefaultSubobject<USphereComponent>("Sphere");
-	Sphere->SetupAttachment(GetRootComponent());
+
+	SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("SceneRoot")));
 }
 
 // 开始运行
@@ -27,31 +22,20 @@ void AAuraEffectActor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// 添加动态绑定
-	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AAuraEffectActor::OnOverlap);
-	Sphere->OnComponentEndOverlap.AddDynamic(this, &AAuraEffectActor::EndOverlap);
 }
 
-// 当重叠时
-void AAuraEffectActor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+// 应用效果到目标
+void AAuraEffectActor::ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
 {
-	// 转换为 ASCInterface
-	if ( auto ASCInterface = Cast<IAbilitySystemInterface>(OtherActor) )
+	if ( auto TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor) )
 	{
-		const auto AuraASC = ASCInterface->GetAbilitySystemComponent();
-		const auto AuraAS = Cast<UAuraAttributeSet>(AuraASC->GetAttributeSet(UAuraAttributeSet::StaticClass()));
-		const_cast<UAuraAttributeSet*>(AuraAS)->SetHealth(AuraAS->GetHealth() + 25.f);
-		Destroy();
+		check(GameplayEffectClass)
+		auto EffectContextHandle = TargetASC->MakeEffectContext();
+		EffectContextHandle.AddSourceObject(this);
+		auto EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.f, EffectContextHandle);
+		TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());
 	}
-	
 }
 
-// 结束重叠
-void AAuraEffectActor::EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-{
-	
-}
 
 WL_DEBUG_END

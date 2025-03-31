@@ -20,6 +20,7 @@ UOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(const FWidgetCont
 	{
 		OverlayWidgetController = NewObject<UOverlayWidgetController>(this, OverlayWidgetControllerClass);
 		OverlayWidgetController->SetWidgetControllerParams(WCParams);
+		OverlayWidgetController->BindCallbacksToDependencies();
 	}
 
 	return OverlayWidgetController;
@@ -32,9 +33,11 @@ void AAuraHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySyst
 	checkf(OverlayWidgetControllerClass, TEXT("未设置OverlayWidgetController， 请在AuraHUD中设置"))
 
 	// 创建主界面 和 主界面控制器
+	auto WidgetController = GetOverlayWidgetController(FWidgetControllerParams(PC, PS, ASC, AS));
 	OverlayWidget = CreateWidget<UAuraUserWidget>(GetWorld(), OverlayWidgetClass);
-	OverlayWidget->SetWidgetController(GetOverlayWidgetController(FWidgetControllerParams(PC, PS, ASC, AS)));
-	OverlayWidget->AddToViewport();
+	OverlayWidget->SetWidgetController(WidgetController);
+	WidgetController->BroadcastInitialValues();
+ 	OverlayWidget->AddToViewport();
 }
 
 WL_DEBUG_END

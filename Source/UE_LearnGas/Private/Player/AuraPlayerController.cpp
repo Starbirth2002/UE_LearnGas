@@ -5,7 +5,10 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "Interaction/EnemyInterface.h"
+#include "Player/AuraPlayerState.h"
+#include "UI/HUD/AuraHUD.h"
 
+class AAuraPlayerState;
 WL_DEBUG_BEGIN
 
 // 构造函数

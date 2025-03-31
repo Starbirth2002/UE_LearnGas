@@ -35,7 +35,7 @@ void AAuraCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	// 初始化能力信息
+	// 初始化
 	InitAbilityActorInfo();
 	
 }
@@ -43,6 +43,9 @@ void AAuraCharacter::PossessedBy(AController* NewController)
 void AAuraCharacter::OnRep_PlayerState()
 {
 	Super::OnRep_PlayerState();
+
+	// 在客户端上初始化
+	InitAbilityActorInfo();
 }
 
 // 初始化能力信息
@@ -64,7 +67,6 @@ void AAuraCharacter::InitAbilityActorInfo()
 			 AuraHUD->InitOverlay(AuraPlayerController, AuraPlayerState, m_AbilitySystemComponent, m_AttributeSet);
 		}
 	}
-	
 }
 
 WL_DEBUG_END
