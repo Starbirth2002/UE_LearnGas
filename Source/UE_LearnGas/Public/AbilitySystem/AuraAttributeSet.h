@@ -13,6 +13,26 @@
 	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+USTRUCT(Blueprintable)
+struct UE_LEARNGAS_API FEffectProperties
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) FGameplayEffectContextHandle		EffectContextHandle;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) UAbilitySystemComponent* 		SourceASC = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) AActor*							SourceAvatarActor = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) AController*						SourceController = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) ACharacter*						SourceCharacter = nullptr;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) UAbilitySystemComponent* 		TargetASC = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) AActor*							TargetAvatarActor = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) AController*						TargetController = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) ACharacter*						TargetCharacter = nullptr;
+	FEffectProperties() {}
+
+	void SetSource(UAbilitySystemComponent* ASC, AActor* AvatarActor, AController* Controller, ACharacter* Character);
+	void SetTarget(UAbilitySystemComponent* ASC, AActor* AvatarActor, AController* Controller, ACharacter* Character);
+};
 
 /**
  * 
@@ -46,9 +66,20 @@ public:
 
 	// 获取生命周期内复制的属性
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	// 当属性发生任何修改前
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+
+	// 在GameplayEffect执行完毕后立即调用
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 	
 	UFUNCTION() void OnRep_Health(const FGameplayAttributeData& OldHealth) const;
 	UFUNCTION() void OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) const;
 	UFUNCTION() void OnRep_Mana(const FGameplayAttributeData& OldMana) const;
 	UFUNCTION() void OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const;
+
+	
+private:
+	
+	void SetEffectProperties(const FGameplayEffectModCallbackData& Data,FEffectProperties& OutProps) const;
 };
