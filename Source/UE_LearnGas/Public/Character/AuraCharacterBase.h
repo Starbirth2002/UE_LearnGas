@@ -28,6 +28,7 @@ protected:
 public:
 	// 构造函数
 	AAuraCharacterBase();
+
 public:
 	// 获取 能力系统组件
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
@@ -36,5 +37,10 @@ public:
 protected:
 	// 开始运行
 	virtual void BeginPlay() override;
-	 
+
+	
+private:
+	// 初始化能力信息
+	virtual void InitAbilityActorInfo() {}
+
 };

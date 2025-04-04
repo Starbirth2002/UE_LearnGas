@@ -28,4 +28,8 @@ public:
 	virtual void UnHighlightActor() override;
 
 	//~ End Enemy Interface
+
+private:
+	// 初始化能力信息
+	virtual void InitAbilityActorInfo() override;
 };

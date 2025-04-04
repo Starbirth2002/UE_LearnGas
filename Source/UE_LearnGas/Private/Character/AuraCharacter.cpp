@@ -2,6 +2,7 @@
 
 #include "UE_LearnGas/Public/Character/AuraCharacter.h"
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Player/AuraPlayerController.h"
 #include "Player/AuraPlayerState.h"
@@ -58,7 +59,7 @@ void AAuraCharacter::InitAbilityActorInfo()
 	m_AbilitySystemComponent = AuraPlayerState->GetAbilitySystemComponent();
 	// 设置拥有者和实际作用对象
 	m_AbilitySystemComponent->InitAbilityActorInfo(AuraPlayerState, this);
-
+	Cast<UAuraAbilitySystemComponent>(m_AbilitySystemComponent)->AbilityActorInfoSet();
 	// 只有客户端玩家自己控制的角色需要初始化HUD
 	if ( auto AuraPlayerController = GetController<AAuraPlayerController>() )
 	{

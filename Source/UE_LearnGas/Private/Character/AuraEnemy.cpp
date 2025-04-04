@@ -28,8 +28,9 @@ AAuraEnemy::AAuraEnemy()
 void AAuraEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-	// 设置拥有者和实际作用对象
-	m_AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	
+	// 初始化能力信息
+	InitAbilityActorInfo();
 }
 
 // 高亮Actor
@@ -49,6 +50,14 @@ void AAuraEnemy::UnHighlightActor()
 	// 取消渲染自定义深度通道
 	GetMesh()->SetRenderCustomDepth(false);
 	m_Weapon->SetRenderCustomDepth(false);
+}
+
+// 初始化能力信息
+void AAuraEnemy::InitAbilityActorInfo()
+{
+	// 设置拥有者和实际作用对象
+	m_AbilitySystemComponent->InitAbilityActorInfo(this, this);
+	Cast<UAuraAbilitySystemComponent>(m_AbilitySystemComponent)->AbilityActorInfoSet();
 }
 
 WL_DEBUG_END
