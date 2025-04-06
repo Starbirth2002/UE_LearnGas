@@ -68,6 +68,8 @@ void AAuraCharacter::InitAbilityActorInfo()
 			 AuraHUD->InitOverlay(AuraPlayerController, AuraPlayerState, m_AbilitySystemComponent, m_AttributeSet);
 		}
 	}
+
+	InitializePrimaryAttributes();
 }
 
 WL_DEBUG_END

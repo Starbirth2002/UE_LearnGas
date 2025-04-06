@@ -7,6 +7,7 @@
 #include "GameFramework/Character.h"
 #include "AuraCharacterBase.generated.h"
 
+class UGameplayEffect;
 class UAbilitySystemComponent;
 class UAttributeSet;
 
@@ -21,10 +22,11 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Combat") TObjectPtr<USkeletalMeshComponent>			m_Weapon;
 
 	// 能力组件
-	UPROPERTY(EditAnywhere,category = "Combat") TObjectPtr<UAbilitySystemComponent>			m_AbilitySystemComponent;
+	UPROPERTY(EditAnywhere, Category = "Combat") TObjectPtr<UAbilitySystemComponent>		m_AbilitySystemComponent;
 	// 属性集
-	UPROPERTY(EditAnywhere,category = "Combat") TObjectPtr<UAttributeSet>					m_AttributeSet;
+	UPROPERTY(EditAnywhere, Category = "Combat") TObjectPtr<UAttributeSet>					m_AttributeSet;
 
+	UPROPERTY(EditAnywhere, Category = "Attributes") TSubclassOf<UGameplayEffect>			m_DefaultPrimaryAttributes;
 public:
 	// 构造函数
 	AAuraCharacterBase();
@@ -43,4 +45,7 @@ private:
 	// 初始化能力信息
 	virtual void InitAbilityActorInfo() {}
 
+
+protected:
+	void InitializePrimaryAttributes() const;	
 };

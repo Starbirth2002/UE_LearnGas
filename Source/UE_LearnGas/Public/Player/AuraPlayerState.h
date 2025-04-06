@@ -19,9 +19,9 @@ class UE_LEARNGAS_API AAuraPlayerState : public APlayerState, public IAbilitySys
 	
 protected:
 	// 能力组件
-	UPROPERTY(EditAnywhere,category = "Combat") TObjectPtr<UAbilitySystemComponent>			m_AbilitySystemComponent;
+	UPROPERTY(VisibleAnywhere) TObjectPtr<UAbilitySystemComponent>			m_AbilitySystemComponent;
 	// 属性集
-	UPROPERTY(EditAnywhere,category = "Combat") TObjectPtr<UAttributeSet>					m_AttributeSet;
+	UPROPERTY() TObjectPtr<UAttributeSet>					m_AttributeSet;
 
 public:
 	// 构造函数
