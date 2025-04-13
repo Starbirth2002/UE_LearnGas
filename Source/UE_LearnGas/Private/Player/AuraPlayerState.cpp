@@ -1,9 +1,9 @@
 ﻿// 王乐用于学习Gas的项目，仅供参考
 
 #include "Player/AuraPlayerState.h"
-
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAttributeSet.h"
+#include "Net/UnrealNetwork.h"
 #include "UE_LearnGas/UE_LearnGas.h"
 
 WL_DEBUG_BEGIN
@@ -22,10 +22,17 @@ AAuraPlayerState::AAuraPlayerState()
 	SetNetUpdateFrequency( 100.f);
 }
 
-// 获取 能力系统组件
-UAbilitySystemComponent* AAuraPlayerState::GetAbilitySystemComponent() const
+// 获取生命周期内复制的属性
+void AAuraPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
-	return m_AbilitySystemComponent;
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	
+	DOREPLIFETIME_CONDITION_NOTIFY(AAuraPlayerState, Level, COND_None, REPNOTIFY_Always);
+}
+
+void AAuraPlayerState::OnRep_Level(int32 OldLevel)
+{
+	
 }
 
 WL_DEBUG_END

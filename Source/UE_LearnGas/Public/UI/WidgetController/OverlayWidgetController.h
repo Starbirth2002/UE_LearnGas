@@ -48,11 +48,11 @@ public:
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Wdiget Data") TObjectPtr<UDataTable>		MessageWidgetDataTable;
 public:
-	// 初始化
-	virtual void BroadcastInitialValues() override;
 	// 绑定回调到依赖项
 	virtual void BindCallbacksToDependencies() override;
-
+	
+	// 初始化
+	virtual void BroadcastInitialValues() override;
 protected:
 	// 使用Lambda表达式替换
 	// void HealthChanged		(const FOnAttributeChangeData& Data) const { OnHealthChanged.Broadcast(Data.NewValue); }

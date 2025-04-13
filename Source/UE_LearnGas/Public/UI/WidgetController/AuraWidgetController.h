@@ -54,8 +54,7 @@ public:
 	// 构造函数
 	UAuraWidgetController();
 
-	// 通知关联控件初始化
-	virtual void BroadcastInitialValues() {}
+	
 	// 绑定回调到依赖项
 	virtual void BindCallbacksToDependencies() {}
 	
@@ -63,5 +62,7 @@ public:
 	UFUNCTION(BlueprintCallable) // 设置界面控制器参数
 	void SetWidgetControllerParams(const FWidgetControllerParams& WCParams);
 
-	
+	// 通知关联控件初始化
+	UFUNCTION(BlueprintCallable)
+	virtual void BroadcastInitialValues() {}
 };

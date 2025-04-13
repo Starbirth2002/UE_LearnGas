@@ -13,6 +13,19 @@
 	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+/* FAttributeFuncPtr = FGameplayAttribute(*)() = TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr
+ * 为了代码整洁性 第一种命名方式
+ * typedef TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr FAttributeFuncPtr;
+ * 为了代码整洁性 第二种命名方式 更通用，可替换其他类型
+ * 如何使用这个模板函数指针
+ * TStaticFuncPtr<float(int32, float, int32)> RandomFunctionPointer;
+ * static float RandomFunction(int32 I, float F, int32 I2) { return 0.f; }
+ * RandomFunctionPointer = RandomFunction;
+ * float f = RandomFunctionPointer(0, 0.f, 0);
+ */
+template <class T>
+using TStaticFuncPtr = typename TBaseStaticDelegateInstance<T, FDefaultDelegateUserPolicy>::FFuncPtr;
+
 USTRUCT(Blueprintable)
 struct UE_LEARNGAS_API FEffectProperties
 {
@@ -43,6 +56,8 @@ class UE_LEARNGAS_API UAuraAttributeSet : public UAttributeSet
 	GENERATED_BODY()
 
 public:
+	TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes;
+	
 	/*
 	 * Primary Attributes
 	 */
@@ -68,43 +83,43 @@ public:
 	 */
 	
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Armor, DisplayName = "护甲", Category = "次要属性")
-	FGameplayAttributeData Armor;
+	FGameplayAttributeData Armor;		// Reduces damage taken, improves Block Chance
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Armor);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ArmorPenetration, DisplayName = "护甲穿透", Category = "次要属性")
-	FGameplayAttributeData ArmorPenetration;
+	FGameplayAttributeData ArmorPenetration;	// Ignores percentage of enemy Armor, increases Critical Hit Chance
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, ArmorPenetration);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_BlockChance, DisplayName = "格挡率", Category = "次要属性")
-	FGameplayAttributeData BlockChance;
+	FGameplayAttributeData BlockChance;			// Chance to cut incoming damage in half
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, BlockChance);
 	
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_CriticalHitChance, DisplayName = "暴击率", Category = "次要属性")
-	FGameplayAttributeData CriticalHitChance;
+	FGameplayAttributeData CriticalHitChance;	// Chance to double damage plus critical hit bonus
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, CriticalHitChance);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_CriticalHitDamage, DisplayName = "暴击伤害", Category = "次要属性")
-	FGameplayAttributeData CriticalHitDamage;
+	FGameplayAttributeData CriticalHitDamage;	// Bonus damage added when a Critical hit is scored
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, CriticalHitDamage);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_CriticalResistance, DisplayName = "暴击抗性", Category = "次要属性")
-	FGameplayAttributeData CriticalResistance;
+	FGameplayAttributeData CriticalResistance;	// Reduces critical hit chance of attacking enemies
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, CriticalResistance);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_HealthRegeneration, DisplayName = "生命恢复", Category = "次要属性")
-	FGameplayAttributeData HealthRegeneration;
+	FGameplayAttributeData HealthRegeneration;	// Amount of Health regenerated every 1 second
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, HealthRegeneration);
 
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_ManaRegeneration, DisplayName = "法力恢复", Category = "次要属性")
-	FGameplayAttributeData ManaRegeneration;
+	FGameplayAttributeData ManaRegeneration;	// Amount of Mana regenerated every 1 second
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, ManaRegeneration);
 	
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, DisplayName = "最大生命值", Category = "重要属性")
-	FGameplayAttributeData MaxHealth;
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, DisplayName = "最大生命值", Category = "次要属性")
+	FGameplayAttributeData MaxHealth;			// Maximum amount of Health obtainable
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxHealth);
 	
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxMana, DisplayName = "最大法力值", Category = "重要属性")
-	FGameplayAttributeData MaxMana;
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxMana, DisplayName = "最大法力值", Category = "次要属性")
+	FGameplayAttributeData MaxMana;				// Maximum amount of Mana obtainable
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxMana);
 	
 	/*
@@ -162,5 +177,8 @@ public:
 private:
 	
 	void SetEffectProperties(const FGameplayEffectModCallbackData& Data,FEffectProperties& OutProps) const;
+
+public:
+
 };
 

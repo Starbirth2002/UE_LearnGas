@@ -61,15 +61,23 @@ void AAuraCharacter::InitAbilityActorInfo()
 	m_AbilitySystemComponent->InitAbilityActorInfo(AuraPlayerState, this);
 	Cast<UAuraAbilitySystemComponent>(m_AbilitySystemComponent)->AbilityActorInfoSet();
 	// 只有客户端玩家自己控制的角色需要初始化HUD
-	if ( auto AuraPlayerController = GetController<AAuraPlayerController>() )
+	if ( AAuraPlayerController* AuraPlayerController = GetController<AAuraPlayerController>() )
 	{
-		if ( auto AuraHUD = AuraPlayerController->GetHUD<AAuraHUD>() )
+		if ( AAuraHUD* AuraHUD = AuraPlayerController->GetHUD<AAuraHUD>() )
 		{
-			 AuraHUD->InitOverlay(AuraPlayerController, AuraPlayerState, m_AbilitySystemComponent, m_AttributeSet);
+			AuraHUD->InitOverlay(AuraPlayerController, AuraPlayerState, m_AbilitySystemComponent, m_AttributeSet);
 		}
 	}
 
-	InitializePrimaryAttributes();
+	InitializeDefaultAttributes();
+}
+
+// 获取等级
+int32 AAuraCharacter::GetPlayerLevel()
+{
+	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	check(AuraPlayerState);
+	return AuraPlayerState->GetPlayerLevel();
 }
 
 WL_DEBUG_END

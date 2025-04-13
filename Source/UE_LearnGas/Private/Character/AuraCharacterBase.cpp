@@ -27,16 +27,25 @@ UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
 void AAuraCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
-void AAuraCharacterBase::InitializePrimaryAttributes() const
+// 应用游戏效果到自己
+void AAuraCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect>& GameplayEffectClass, float Level) const
 {
-	auto ASC = GetAbilitySystemComponent();
-	check(ASC && m_DefaultPrimaryAttributes)
-	const auto ContextHandle = ASC->MakeEffectContext();
-	const auto SpecHandle = ASC->MakeOutgoingSpec(m_DefaultPrimaryAttributes, 1.f, ContextHandle);
+	UAbilitySystemComponent* ASC = GetAbilitySystemComponent();
+	check(ASC && GameplayEffectClass)
+	FGameplayEffectContextHandle ContextHandle = ASC->MakeEffectContext();
+	ContextHandle.AddSourceObject(this);
+	const FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(GameplayEffectClass, Level, ContextHandle);
 	ASC->ApplyGameplayEffectSpecToTarget(*SpecHandle.Data.Get(), ASC);
+}
+
+// 初始化属性
+void AAuraCharacterBase::InitializeDefaultAttributes() const
+{
+	ApplyEffectToSelf(m_DefaultPrimaryAttributes, 1.f);
+	ApplyEffectToSelf(m_DefaultSecondaryAttributes, 1.f);
+	ApplyEffectToSelf(m_DefaultVitalAttributes, 1.f);
 }
 
 WL_DEBUG_END

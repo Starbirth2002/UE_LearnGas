@@ -19,18 +19,22 @@ protected:
 	// 开始运行
 	virtual void BeginPlay() override;
 
+	// 父类继承
 //~ Begin APawn Interface.
 public:
 	// 在被控制器控制时调用
 	virtual void PossessedBy(AController* NewController) override;
 	
-//~ End APawn Interface.
-public:
 	virtual void OnRep_PlayerState() override;
-
-	
+//~ End APawn Interface.
 
 private:
 	// 初始化能力信息
 	virtual void InitAbilityActorInfo() override;
+
+	//~ Begin Combat Interface
+public:
+	// 获取等级
+	virtual int32 GetPlayerLevel() override;
+	//~ End Combat Interface
 };
