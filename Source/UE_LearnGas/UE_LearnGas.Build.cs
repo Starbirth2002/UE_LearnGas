@@ -22,7 +22,8 @@ public class UE_LearnGas : ModuleRules
 		PrivateDependencyModuleNames.AddRange(new string[]
 		{
 			"GameplayTags",
-			"GameplayTasks"
+			"GameplayTasks",
+			"NavigationSystem",
 		});
 
 		// Uncomment if you are using Slate UI

@@ -8,6 +8,7 @@
 #include "Interaction/CombatInterface.h"
 #include "AuraCharacterBase.generated.h"
 
+class UGameplayAbility;
 class UGameplayEffect;
 class UAbilitySystemComponent;
 class UAttributeSet;
@@ -21,7 +22,9 @@ class UE_LEARNGAS_API AAuraCharacterBase : public ACharacter, public IAbilitySys
 protected:
 	// 武器组件
 	UPROPERTY(EditAnywhere, Category = "Combat") TObjectPtr<USkeletalMeshComponent>			m_Weapon;
-
+	// 
+	UPROPERTY(EditAnywhere, Category = "Combat") FName WeaponTipSocketName;
+	
 	// 能力组件
 	UPROPERTY(EditAnywhere, Category = "Combat") TObjectPtr<UAbilitySystemComponent>		m_AbilitySystemComponent;
 	// 属性集
@@ -30,6 +33,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Attributes") TSubclassOf<UGameplayEffect>			m_DefaultPrimaryAttributes;
 	UPROPERTY(EditAnywhere, Category = "Attributes") TSubclassOf<UGameplayEffect>			m_DefaultSecondaryAttributes;
 	UPROPERTY(EditAnywhere, Category = "Attributes") TSubclassOf<UGameplayEffect>			m_DefaultVitalAttributes;
+
+private:
+	UPROPERTY(EditAnywhere, Category = "Attributes") TArray<TSubclassOf<UGameplayAbility>>		StartupAbilities;
 public:
 	// 构造函数
 	AAuraCharacterBase();
@@ -48,10 +54,20 @@ private:
 	// 初始化能力信息
 	virtual void InitAbilityActorInfo() {}
 
+	//~ Begin Combat Interface
+public:
+	// 获取武器插槽坐标
+	virtual FVector GetCombatSocketLocation() const override;
+	//~ End Combat Interface
+	
+
 
 protected:
 	// 应用游戏效果到自己
 	void ApplyEffectToSelf(const TSubclassOf<UGameplayEffect>& GameplayEffectClass, float Level) const;
 	// 初始化属性
 	void InitializeDefaultAttributes() const;
+
+	// 添加角色能力
+	void AddCharacterAbilities();
 };

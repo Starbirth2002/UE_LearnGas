@@ -6,6 +6,8 @@
 
 #define ANGT_Primary(Name, Description) Attributes_Primary_##Name = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Primary." #Name), FString(Description))
 #define ANGT_Secondary(Name, Description) Attributes_Secondary_##Name = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Secondary." #Name), FString(Description))
+#define ANGT_InputTag(Name, Description) InputTag_##Name = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("InputTag." #Name), FString(Description))
+
 
 
 WL_DEBUG_BEGIN
@@ -18,6 +20,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 {
 	GameplayTags.InitPrimary();
 	GameplayTags.InitSecondary();
+	GameplayTags.InitInputTag();
 }
 
 // 初始化主要属性
@@ -50,6 +53,15 @@ void FAuraGameplayTags::InitVital()
 	// Attributes_Vital_Mana	= UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Vital.Mana"),	FString("用于施放法术的资源(A resource used to cast spells)"));
 }
 
+void FAuraGameplayTags::InitInputTag()
+{
+	ANGT_InputTag(LMB,	"Inout Tag for Left Mouse Button");
+	ANGT_InputTag(RMB,	"Inout Tag for Right Mouse Button");
+	ANGT_InputTag(1,	"Inout Tag for Right 1 Key");
+	ANGT_InputTag(2,	"Inout Tag for Right 2 Key");
+	ANGT_InputTag(3,	"Inout Tag for Right 3 Key");
+	ANGT_InputTag(4,	"Inout Tag for Right 4 Key");
+}
 
 
 WL_DEBUG_END

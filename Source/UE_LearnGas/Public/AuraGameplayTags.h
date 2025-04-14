@@ -38,7 +38,12 @@ public:
 	FGameplayTag Attributes_Secondary_MaxHealth;
 	FGameplayTag Attributes_Secondary_MaxMana;
 
-
+	FGameplayTag InputTag_LMB;
+	FGameplayTag InputTag_RMB;
+	FGameplayTag InputTag_1;
+	FGameplayTag InputTag_2;
+	FGameplayTag InputTag_3;
+	FGameplayTag InputTag_4;
 	// 重要属性
 	// FGameplayTag Attributes_Vital_Health;
 	// FGameplayTag Attributes_Vital_Mana;
@@ -49,6 +54,9 @@ private:
 	// 初始化次要属性
 	void InitSecondary();
 	void InitVital();
+
+	// 初始化输入Tag
+	void InitInputTag();
 
 public:
 };

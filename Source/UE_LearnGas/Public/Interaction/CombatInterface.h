@@ -24,4 +24,7 @@ class UE_LEARNGAS_API ICombatInterface
 public:
 	// 获取等级
 	virtual int32 GetPlayerLevel() { return 0; }
+
+	// 获取武器插槽坐标
+	virtual FVector GetCombatSocketLocation() const { return FVector::ZeroVector; }
 };

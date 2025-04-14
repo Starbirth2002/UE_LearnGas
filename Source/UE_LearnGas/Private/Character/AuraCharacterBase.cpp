@@ -2,6 +2,7 @@
 #include "Character/AuraCharacterBase.h" 
 
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "UE_LearnGas/UE_LearnGas.h"
 
 WL_DEBUG_BEGIN
@@ -29,6 +30,14 @@ void AAuraCharacterBase::BeginPlay()
 	Super::BeginPlay();
 }
 
+// 获取武器插槽坐标
+FVector AAuraCharacterBase::GetCombatSocketLocation() const
+{
+	check(m_Weapon)
+	return m_Weapon->GetSocketLocation(WeaponTipSocketName);
+	
+}
+
 // 应用游戏效果到自己
 void AAuraCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect>& GameplayEffectClass, float Level) const
 {
@@ -46,6 +55,15 @@ void AAuraCharacterBase::InitializeDefaultAttributes() const
 	ApplyEffectToSelf(m_DefaultPrimaryAttributes, 1.f);
 	ApplyEffectToSelf(m_DefaultSecondaryAttributes, 1.f);
 	ApplyEffectToSelf(m_DefaultVitalAttributes, 1.f);
+}
+
+// 添加角色能力
+void AAuraCharacterBase::AddCharacterAbilities()
+{
+	UAuraAbilitySystemComponent* AuraASC = CastChecked<UAuraAbilitySystemComponent>(GetAbilitySystemComponent());
+	if ( !HasAuthority() ) { return; }
+
+	AuraASC->AddCharacterAbilities(StartupAbilities);
 }
 
 WL_DEBUG_END

@@ -6,10 +6,14 @@
 #include "GameFramework/PlayerController.h"
 #include "AuraPlayerController.generated.h"
 
+class USplineComponent;
+class UAuraAbilitySystemComponent;
+struct FGameplayTag;
+struct FInputActionValue;
+class UAuraInputConfig;
 class UInputMappingContext;
 class UInputAction;
 class IEnemyInterface;
-struct FInputActionValue;
 /**
  * 
  */
@@ -19,9 +23,25 @@ class UE_LEARNGAS_API AAuraPlayerController : public APlayerController
 	GENERATED_BODY()
 		
 private:
-	UPROPERTY(EditAnywhere, Category = "Input") TObjectPtr<UInputMappingContext>	m_AuraContext;
-	UPROPERTY(EditAnywhere, Category = "Input") TObjectPtr<UInputAction>			m_MoveAction;
+	UPROPERTY(EditAnywhere, Category = "Input")		TObjectPtr<UInputMappingContext>	m_AuraContext;
+	UPROPERTY(EditAnywhere, Category = "Input")		TObjectPtr<UInputAction>			m_MoveAction;
+	UPROPERTY(EditDefaultsOnly, Category = "Input")	TObjectPtr<UAuraInputConfig>		m_InputConfig;
+
+	UPROPERTY() TObjectPtr<UAuraAbilitySystemComponent>			m_AuraASC;
+
+	// 鼠标点击移动
+	FVector			CachedDestination = FVector::ZeroVector;
+	float			FollowTime = 0.0f;
+	float			ShortPressThreshold = 0.5f;
+	bool			bAutoRunning = false;
+	bool			bTargeting = false;
+	UPROPERTY(EditDefaultsOnly)
+	float AutoRunAcceptanceRadius = 50.f;
+
+	UPROPERTY(VisibleAnywhere) TObjectPtr<USplineComponent> Spline;
 	
+
+	FHitResult		 CursorHit;				// 鼠标命中结果
 	IEnemyInterface* LastActor = nullptr;	// 上一次指向的Actor
 	IEnemyInterface* ThisActor = nullptr;	// 这一次指向的Actor
 	
@@ -38,8 +58,15 @@ protected:
 	virtual void SetupInputComponent() override;
 
 private:
+	UAuraAbilitySystemComponent* GetASC();
+	//
+	void AbilityInputTagPressed(FGameplayTag InputTag);
+	void AbilityInputTagReleased(FGameplayTag InputTag);
+	void AbilityInputTagHeld(FGameplayTag InputTag);
 	// 移动
 	void Move(const FInputActionValue& InputActionValue);
+	// 自动寻路
+	void AutoRun();
 	
 	// 鼠标射线检测
 	void CursorTrace();
