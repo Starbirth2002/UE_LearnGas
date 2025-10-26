@@ -119,6 +119,8 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 	{
 		// GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Red, FString::Printf(TEXT("Health: %f"), GetHealth()));
 		// SetHealth(FMath::Clamp(GetHealth(), 0.0f, GetMaxHealth()));
+		
+		UE_LOG(LogTemp, Warning, TEXT("%s改变了生命值为 %f"), *Props.TargetAvatarActor->GetName(), GetHealth());
 	}
 	if ( Data.EvaluatedData.Attribute == GetMaxHealthAttribute() )
 	{

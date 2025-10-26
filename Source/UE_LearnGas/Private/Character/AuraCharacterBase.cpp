@@ -3,6 +3,7 @@
 
 #include "AbilitySystemComponent.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "UE_LearnGas/UE_LearnGas.h"
 
 WL_DEBUG_BEGIN
@@ -11,7 +12,15 @@ WL_DEBUG_BEGIN
 AAuraCharacterBase::AAuraCharacterBase()
 {
 	PrimaryActorTick.bCanEverTick = false;
+	
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	GetCapsuleComponent()->SetGenerateOverlapEvents(false);
+	GetMesh()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
 
+	// 设置和投掷物的交互
+	GetMesh()->SetCollisionResponseToChannel(ECC_Projectile, ECR_Overlap);
+	GetMesh()->SetGenerateOverlapEvents(true);
+	
 	// 初始化Weapon组件
 	m_Weapon = CreateDefaultSubobject<USkeletalMeshComponent>("Weapon");
 	m_Weapon->SetupAttachment(GetMesh(), FName(TEXT("WeaponHandSocket")));

@@ -24,6 +24,7 @@ public class UE_LearnGas : ModuleRules
 			"GameplayTags",
 			"GameplayTasks",
 			"NavigationSystem",
+			"Niagara",
 		});
 
 		// Uncomment if you are using Slate UI

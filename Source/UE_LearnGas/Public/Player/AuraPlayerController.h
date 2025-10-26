@@ -25,6 +25,7 @@ class UE_LEARNGAS_API AAuraPlayerController : public APlayerController
 private:
 	UPROPERTY(EditAnywhere, Category = "Input")		TObjectPtr<UInputMappingContext>	m_AuraContext;
 	UPROPERTY(EditAnywhere, Category = "Input")		TObjectPtr<UInputAction>			m_MoveAction;
+	UPROPERTY(EditAnywhere, Category = "Input")		TObjectPtr<UInputAction>			m_ShiftAction;
 	UPROPERTY(EditDefaultsOnly, Category = "Input")	TObjectPtr<UAuraInputConfig>		m_InputConfig;
 
 	UPROPERTY() TObjectPtr<UAuraAbilitySystemComponent>			m_AuraASC;
@@ -37,6 +38,8 @@ private:
 	bool			bTargeting = false;
 	UPROPERTY(EditDefaultsOnly)
 	float AutoRunAcceptanceRadius = 50.f;
+
+	bool			bShiftKeyDown = false;
 
 	UPROPERTY(VisibleAnywhere) TObjectPtr<USplineComponent> Spline;
 	
@@ -65,6 +68,9 @@ private:
 	void AbilityInputTagHeld(FGameplayTag InputTag);
 	// 移动
 	void Move(const FInputActionValue& InputActionValue);
+	
+	void ShiftPressed() { bShiftKeyDown = true; }
+	void ShiftReleased() { bShiftKeyDown = false; }
 	// 自动寻路
 	void AutoRun();
 	

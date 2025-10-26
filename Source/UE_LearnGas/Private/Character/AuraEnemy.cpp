@@ -39,6 +39,8 @@ void AAuraEnemy::InitAbilityActorInfo()
 	// 设置拥有者和实际作用对象
 	m_AbilitySystemComponent->InitAbilityActorInfo(this, this);
 	Cast<UAuraAbilitySystemComponent>(m_AbilitySystemComponent)->AbilityActorInfoSet();
+
+	InitializeDefaultAttributes();
 }
 
 // 高亮Actor
