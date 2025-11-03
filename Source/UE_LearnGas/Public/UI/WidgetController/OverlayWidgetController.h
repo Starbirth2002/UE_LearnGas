@@ -9,8 +9,6 @@
 
 class UAuraUserWidget;
 
-#define  ASC_BindChangeDelegate(name) AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAS->Get##name##Attribute()).AddLambda([this](const FOnAttributeChangeData& Data) { On##name##Changed.Broadcast(Data.NewValue); });
-
 USTRUCT(Blueprintable)
 struct FUIWidgetRow : public FTableRowBase
 {

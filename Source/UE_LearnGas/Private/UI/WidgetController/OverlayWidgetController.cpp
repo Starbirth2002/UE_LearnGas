@@ -11,15 +11,15 @@ WL_DEBUG_BEGIN
 // 绑定回调到依赖项
 void UOverlayWidgetController::BindCallbacksToDependencies()
 {
-	auto AuraAS = CastChecked<UAuraAttributeSet>(AttributeSet);
+	UAuraAttributeSet* AuraAS = CastChecked<UAuraAttributeSet>(AttributeSet);
 
 	// 使用Lambda表达式进行替换
 	// AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AuraAS->GetHealthAttribute()).AddUObject(this, &UOverlayWidgetController::HealthChanged);
 	
-	ASC_BindChangeDelegate(Health)
-	ASC_BindChangeDelegate(MaxHealth)
-	ASC_BindChangeDelegate(Mana)
-	ASC_BindChangeDelegate(MaxMana)
+	ASC_BIND_CHANGE_DELEGATE(Health, AbilitySystemComponent, AuraAS);
+	ASC_BIND_CHANGE_DELEGATE(MaxHealth, AbilitySystemComponent, AuraAS);
+	ASC_BIND_CHANGE_DELEGATE(Mana, AbilitySystemComponent, AuraAS);
+	ASC_BIND_CHANGE_DELEGATE(MaxMana, AbilitySystemComponent, AuraAS);
 
 	Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->EffectAssetTags.AddLambda(
 		[this](const FGameplayTagContainer& AssetTags)

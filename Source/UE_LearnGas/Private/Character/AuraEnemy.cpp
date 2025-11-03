@@ -1,12 +1,15 @@
 ﻿// 王乐用于学习Gas的项目，仅供参考
 
 #include "UE_LearnGas/Public/Character/AuraEnemy.h"
-
+#include "StarCore.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
 #include "AbilitySystem/AuraAttributeSet.h"
+#include "Components/WidgetComponent.h"
+#include "Tool/StarToolLib.h"
 #include "UE_LearnGas/UE_LearnGas.h"
+#include "UI/Widget/AuraUserWidget.h"
 
-WL_DEBUG_BEGIN
+STAR_DEBUG_BEGIN
 
 // 构造函数
 AAuraEnemy::AAuraEnemy()
@@ -21,7 +24,7 @@ AAuraEnemy::AAuraEnemy()
 	// 设置网络复制模式
 	m_AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 
-	
+	HealthBar= UStarToolLib::CreateAndSetup2Root<UWidgetComponent>("HeathBar", this);
 }
 
 // 开始运行
@@ -31,6 +34,22 @@ void AAuraEnemy::BeginPlay()
 	
 	// 初始化能力信息
 	InitAbilityActorInfo();
+
+	if ( UAuraUserWidget* AuraUserWidget = Cast<UAuraUserWidget>(HealthBar->GetUserWidgetObject()) )
+	{
+		AuraUserWidget->SetWidgetController(this);
+	}
+	
+	// 绑定回调 当属性变化后，通知属性发生变化
+	if ( UAuraAttributeSet* AuraAS = CastChecked<UAuraAttributeSet>(m_AttributeSet) )
+	{
+		ASC_BIND_CHANGE_DELEGATE(Health, m_AbilitySystemComponent, AuraAS);
+		ASC_BIND_CHANGE_DELEGATE(MaxHealth, m_AbilitySystemComponent, AuraAS);
+
+		OnHealthChanged.Broadcast(AuraAS->GetHealth());
+		OnMaxHealthChanged.Broadcast(AuraAS->GetMaxHealth());
+	}
+	
 }
 
 // 初始化能力信息
@@ -63,4 +82,4 @@ void AAuraEnemy::UnHighlightActor()
 }
 
 
-WL_DEBUG_END
+STAR_DEBUG_END

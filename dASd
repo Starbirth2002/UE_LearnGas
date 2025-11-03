@@ -1,0 +1,15 @@
+[33mcbe33a3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m 完善投掷物效果，增加特效和音效和伤害效果
+[33mc804b8c[m 还原 SK_Staff.uasset 到提交 271779a
+[33mad98740[m 进度： P108 1、创建AuraInput组件，自定义输入流程(实现函数模板指针等) 2、实现了鼠标长按移动，短按自动寻路，不过没有使用GA实现，感觉可以通过GA实现，3、创建AuraGA基类，简单实现了发射一个火球(未完善)，
+[33md6d2d91[m 进度：P93 在FAuraGameplayTags单例中创建GameplayTag，创建属性界面，完成初始化和更新，完善主要属性和次要属性之间的关联
+[33m271779a[m 进度：P67，创建了更多的主要属性和次要属性，添加了EffectActor的Message，当效果生效时进行通知创建UI_Message
+[33m8c51ef2[m 通过.ini和DataTable创建游戏标签，并为AuraASC绑定了EffectApplied回调
+[33md6e3d7d[m 创建了Infinite效果的EffectActor, 并为EffectActor完善了生效时间，创建FEffectProperties记录Soure和Target，使用Curve处理Effect
+[33me3a05a3[m 完善了客户端也能初始化HUD，添加了回血，回蓝，持续回血，持续回蓝的GameEffect和Actor
+[33m6c9ea42[m 完善HUD，创建主界面和主界面控制器，在客户端对HUD进行初始化
+[33m72b2013[m 整理内容到Aura文件夹中，为AuraAS创建了Headlth、MaxHealth、Mana、MaxMana四个属性。创建EffectActor，使用HealthGlobeActor进行测试；；搭建MVC框架，创建了UAuraUserWidget 和 UAuraWidgetComponent；创建了显示数值的进度条UI
+[33m903211e[m 创建 ASC和 AttributeSet, 为PlayerState 和 Enemy初始化了ASC和AS
+[33me3578a8[m 创建GameMode和Playercontroller，通过增强输入系统添加移动操作，通过EnemyInterface为Goblin添加鼠标选中高亮效果
+[33m2e61cd0[m 添加AuraActor和EnemyActor
+[33m12bcc5e[m The Base Character  Class
+[33meda90f1[m 初始化项目，仅蓝图资产和忽.gitignore

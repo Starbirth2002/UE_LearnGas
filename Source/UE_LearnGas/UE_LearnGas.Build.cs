@@ -16,7 +16,8 @@ public class UE_LearnGas : ModuleRules
 			"InputCore",
 			"EnhancedInput", 
 			"GameplayAbilities",
-			"UMG"
+			"UMG",
+			"WL_StarLibrary"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[]
