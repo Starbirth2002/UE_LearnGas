@@ -66,7 +66,7 @@ protected:
 	// 应用游戏效果到自己
 	void ApplyEffectToSelf(const TSubclassOf<UGameplayEffect>& GameplayEffectClass, float Level) const;
 	// 初始化属性
-	void InitializeDefaultAttributes() const;
+	virtual void InitializeDefaultAttributes() const;
 
 	// 添加角色能力
 	void AddCharacterAbilities();

@@ -8,8 +8,6 @@
 #define ANGT_Secondary(Name, Description) Attributes_Secondary_##Name = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Secondary." #Name), FString(Description))
 #define ANGT_InputTag(Name, Description) InputTag_##Name = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("InputTag." #Name), FString(Description))
 
-
-
 WL_DEBUG_BEGIN
 
 FAuraGameplayTags FAuraGameplayTags::GameplayTags;
@@ -21,6 +19,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	GameplayTags.InitPrimary();
 	GameplayTags.InitSecondary();
 	GameplayTags.InitInputTag();
+	GameplayTags.InitMeta();
 }
 
 // 初始化主要属性
@@ -51,6 +50,14 @@ void FAuraGameplayTags::InitVital()
 {
 	// Attributes_Vital_Health = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Vital.Health"),FString("玩家死前可以承受的伤害量(Amount of Damage a player can take before death)"));
 	// Attributes_Vital_Mana	= UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Vital.Mana"),	FString("用于施放法术的资源(A resource used to cast spells)"));
+}
+
+void FAuraGameplayTags::InitMeta()
+{
+	GameplayTags.Damage = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Damage"),
+		FString("伤害")
+		);
 }
 
 void FAuraGameplayTags::InitInputTag()

@@ -6,6 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "AuraGameModeBase.generated.h"
 
+class UCharacterClassInfo;
 /**
  * 
  */
@@ -14,5 +15,7 @@ class UE_LEARNGAS_API AAuraGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 
-	virtual void BeginPlay() override;
+public:
+	UPROPERTY(EditDefaultsOnly, Category="角色类默认")
+	TObjectPtr<UCharacterClassInfo> CharacterClassInfo;
 };

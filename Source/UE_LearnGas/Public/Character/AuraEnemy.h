@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AuraCharacterBase.h"
+#include "AbilitySystem/Data/CharacterClassInfo.h"
 #include "Interaction/EnemyInterface.h"
 #include "UI/WidgetController/OverlayWidgetController.h"
 #include "AuraEnemy.generated.h"
@@ -16,8 +17,10 @@ class UE_LEARNGAS_API AAuraEnemy : public AAuraCharacterBase, public IEnemyInter
 	GENERATED_BODY()
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Character Class Defaults") int32 Level = 1;
-
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "角色类默认值")
+	int32 Level = 1;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "角色类默认值")
+	ECharacterClass CharacterClass = ECharacterClass::Warrior;
 	// 生命值
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly) TObjectPtr<UWidgetComponent>	HealthBar;
 	UPROPERTY(BlueprintAssignable) FOnAttributeChangedSignature					OnHealthChanged;
@@ -35,6 +38,9 @@ protected:
 private:
 	// 初始化能力信息
 	virtual void InitAbilityActorInfo() override;
+
+protected:
+	virtual void InitializeDefaultAttributes() const override;
 	
 //~ End ----- Actor Interface -----
 	

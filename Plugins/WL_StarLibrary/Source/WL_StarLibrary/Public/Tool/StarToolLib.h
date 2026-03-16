@@ -18,14 +18,20 @@ class WL_STARLIBRARY_API UStarToolLib : public UBlueprintFunctionLibrary
 public:
 	// 创建并添加组件
 	template<typename T>
-	static T* CreateAndSetup2Root(FName SubobjectName, AActor* Owner);
+	static T* Construct_CreateAndSetupComp(FName SubobjectName, USceneComponent* pParent);
 };
 
-template <typename T>
-T* UStarToolLib::CreateAndSetup2Root(FName SubobjectName, AActor* Owner)
-{
-	T* pComponent = Owner->CreateDefaultSubobject<T>(SubobjectName);
-	pComponent->SetupAttachment(Owner->GetRootComponent());
 
-	return pComponent;
+template <typename T>
+T* UStarToolLib::Construct_CreateAndSetupComp(FName SubobjectName, USceneComponent* pParent)
+{
+	if ( pParent && pParent->GetOwner() )
+	{
+		T* pComponent = pParent->GetOwner()->CreateDefaultSubobject<T>(SubobjectName);
+		pComponent->SetupAttachment(pParent);
+
+		return pComponent;
+	}
+
+	return nullptr;
 }

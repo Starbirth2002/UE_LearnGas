@@ -135,6 +135,13 @@ public:
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Mana);
 
 
+	/*
+	 * Meta Attributes 元数据 用于计算的占位符
+	 */
+
+	UPROPERTY(BlueprintReadOnly, DisplayName = "受到的伤害", Category = "元数据")
+	FGameplayAttributeData IncomingDamage;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, IncomingDamage);
 
 	
 public :

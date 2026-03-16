@@ -3,6 +3,7 @@
 #include "UE_LearnGas/Public/Character/AuraEnemy.h"
 #include "StarCore.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "AbilitySystem/AuraAbilitySystemLib.h"
 #include "AbilitySystem/AuraAttributeSet.h"
 #include "Components/WidgetComponent.h"
 #include "Tool/StarToolLib.h"
@@ -24,7 +25,7 @@ AAuraEnemy::AAuraEnemy()
 	// 设置网络复制模式
 	m_AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 
-	HealthBar= UStarToolLib::CreateAndSetup2Root<UWidgetComponent>("HeathBar", this);
+	HealthBar= UStarToolLib::Construct_CreateAndSetupComp<UWidgetComponent>("HeathBar", GetRootComponent());
 }
 
 // 开始运行
@@ -60,6 +61,13 @@ void AAuraEnemy::InitAbilityActorInfo()
 	Cast<UAuraAbilitySystemComponent>(m_AbilitySystemComponent)->AbilityActorInfoSet();
 
 	InitializeDefaultAttributes();
+}
+
+void AAuraEnemy::InitializeDefaultAttributes() const
+{
+	// Super::InitializeDefaultAttributes();
+
+	UAuraAbilitySystemLib::InitializeDefaultAttributes(this, CharacterClass, Level, m_AbilitySystemComponent);
 }
 
 // 高亮Actor

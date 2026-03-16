@@ -47,13 +47,18 @@ public:
 	// 重要属性
 	// FGameplayTag Attributes_Vital_Health;
 	// FGameplayTag Attributes_Vital_Mana;
+	
+	FGameplayTag Damage;
 
+	
 private:
 	// 初始化主要属性
 	void InitPrimary();
 	// 初始化次要属性
 	void InitSecondary();
 	void InitVital();
+
+	void InitMeta();
 
 	// 初始化输入Tag
 	void InitInputTag();

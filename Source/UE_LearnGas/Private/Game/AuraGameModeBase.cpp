@@ -6,9 +6,5 @@
 
 WL_DEBUG_BEGIN
 
-void AAuraGameModeBase::BeginPlay()
-{
-	Super::BeginPlay();
-}
 
 WL_DEBUG_END
